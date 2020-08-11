@@ -28,6 +28,7 @@ def datosUser():
     print(tabulate(userName, tablefmt='fancy_grid', stralign='center'))
     print()
     print()
+    #cmd.mkdir *da $
 
 
 def buscarEtiquetas():
