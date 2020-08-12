@@ -64,15 +64,13 @@ def buscarEtiquetas():
             if (validarNumero == False):
                 ch = int(vte2[ 0 ])
                 ch *= 1000
-                vte2 = vte2.replace(vte2, f'{ch}')
+                vte2 = int(vte2.replace(vte2, f'{ch}'))
 
             if vte2 > 0:
-                listaVotos += str(vte2)
+                listaVotos.append(vte2)
                 listaTags += ttb
         iterator += 1
 
-    print(len(listaVotos))
-    print(len(listaTags))
     '''if len(listaVotos) != 0:
         m3 = []
         listaVtsModified = [iter(listaVotos)] * 4
