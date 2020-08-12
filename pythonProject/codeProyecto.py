@@ -61,17 +61,14 @@ def buscarEtiquetas():
                 vte2 = vte.text
                 validarNumero = False
 
-            if (validarNumero == True):
-                print(vte2)
-            else:
-                ch = int(vte2[0])
+            if (validarNumero == False):
+                ch = int(vte2[ 0 ])
                 ch *= 1000
                 vte2 = vte2.replace(vte2, f'{ch}')
-                print(type(vte2))
-                print(vte2)
-        '''if ((vte.text=='0') or (vte.text=='-1') or (vte.text=='-2') )==False:
-                listaVotos += vte
-                listaTags += ttb'''
+
+            if vte2 > 0:
+                listaVotos += str(vte2)
+                listaTags += ttb
         iterator += 1
 
     print(len(listaVotos))
