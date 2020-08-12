@@ -68,6 +68,7 @@ def buscarEtiquetas():
                 ch *= 1000
                 vte2 = vte2.replace(vte2, f'{ch}')
                 print(type(vte2))
+                print(vte2)
         '''if ((vte.text=='0') or (vte.text=='-1') or (vte.text=='-2') )==False:
                 listaVotos += vte
                 listaTags += ttb'''
