@@ -53,10 +53,28 @@ def buscarEtiquetas():
         for row in soupMostrar.findAll('table')[0].tbody.findAll('td'):
             vte = row.findAll('div', class_='answer-votes')[0]
             ttb = row.findAll('a', class_='post-tag')[0]
-            if ((vte.text=='0') or (vte.text=='-1') or (vte.text=='-2') )==False:
+            try:
+                vte2 = int(vte.text)
+                validarNumero = True
+
+            except Exception as e:
+                vte2 = vte.text
+                validarNumero = False
+
+            if (validarNumero == True):
+                print(vte2)
+            else:
+                ch = int(vte2[0])
+                ch *= 1000
+                vte2 = vte2.replace(vte2, f'{ch}')
+                print(type(vte2))
+        '''if ((vte.text=='0') or (vte.text=='-1') or (vte.text=='-2') )==False:
                 listaVotos += vte
-                listaTags += ttb
+                listaTags += ttb'''
         iterator += 1
+
+    print(len(listaVotos))
+    print(len(listaTags))
     '''if len(listaVotos) != 0:
         m3 = []
         listaVtsModified = [iter(listaVotos)] * 4
