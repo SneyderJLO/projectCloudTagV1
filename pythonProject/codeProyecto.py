@@ -65,12 +65,13 @@ def buscarEtiquetas():
                 ch = int(vte2[ 0 ])
                 ch *= 1000
                 vte2 = int(vte2.replace(vte2, f'{ch}'))
-
             if vte2 > 0:
                 listaVotos.append(vte2)
                 listaTags += ttb
         iterator += 1
-    if len(listaVotos) != 0:
+    print(len(listaVotos))
+    print(listaVotos)
+    '''if len(listaVotos) != 0:
         m3 = []
         listaVtsModified = [iter(listaVotos)] * 4
         Matriz1 = list(zip_longest(*listaVtsModified, fillvalue=' '))
@@ -82,8 +83,9 @@ def buscarEtiquetas():
             m3.append([])
             for j in range(4):
                 m3[i].append(f'{(Matriz1[i][j])}'+ ' : ' + str(Matriz2[i][j]))
-        print(tabulate(m3,tablefmt='fancy_grid',stralign='center'))
-        '''stopwords = set(STOPWORDS)
+        print(tabulate(m3,tablefmt='fancy_grid',stralign='center')) 
+        
+        stopwords = set(STOPWORDS)
         wine_mask = np.array(Image.open("84419.png"))
         transformed_wine_mask = np.ndarray((wine_mask.shape[ 0 ], wine_mask.shape[ 1 ]), np.int32)
 
