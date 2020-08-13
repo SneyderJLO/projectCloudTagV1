@@ -111,7 +111,7 @@ try :
                 datosUser()
                 buscarEtiquetas()
                 try:
-                    opcion = int(input('\n' +  '1: Ver etiquetas | 2: Ver nube de etiquetas  | 3: salir '))
+                    opcion = int(input('\n 1: Ver etiquetas \n 2: Ver nube de etiquetas \n 3: salir \n OPCION: '))
                     while opcion != 3:
                         if opcion == 1:
                             mostrarEtiquetas()
@@ -119,7 +119,7 @@ try :
                             generarNube()
                         if opcion == 3:
                             exit()
-                        opcion = int(input('\n' + '1: Ver etiquetas | 2: Ver nube de etiquetas  | 3: salir  '))
+                        opcion = int(input('\n 1: Ver etiquetas \n 2: Ver nube de etiquetas \n 3: salir \n OPCION: '))
 
                 except ValueError:
                     print('No válido, solo opción 1 | 2 | 3')
