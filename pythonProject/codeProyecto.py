@@ -77,15 +77,12 @@ def mostrarEtiquetas():
 def generarNube():
     cloudPNG = np.array(Image.open("mask.png"))
     maskCloud = np.ndarray((cloudPNG.shape[ 0 ], cloudPNG.shape[ 1 ]), np.int32)
-
     for i in range(len(cloudPNG)) :
         maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
-
-
-    wc = WordCloud(background_color='white',
-                   mask=maskCloud,
-                   max_font_size=listaVotos[0]).generate(listaTags[0])
-
+    wc = WordCloud(background_color='white', max_words=len(listaVotos), mask=maskCloud, contour_width=0.01,
+                       contour_color='dimgray',colormap='BuPu')
+    text = ' '.join(listaTags)
+    wc.generate(text)
     wc.to_file("nube.png")
     plt.figure(figsize=[ 10, 7 ])
     plt.imshow(wc, interpolation='bilinear')
@@ -113,8 +110,19 @@ try :
             else:
                 datosUser()
                 buscarEtiquetas()
-                #mostrarEtiquetas()
-                generarNube()
+                try:
+                    opcion = int(input('\n' +  '1: Ver etiquetas | 2: Ver nube de etiquetas  | 3: salir '))
+                    while opcion != 3:
+                        if opcion == 1:
+                            mostrarEtiquetas()
+                        if opcion == 2:
+                            generarNube()
+                        if opcion == 3:
+                            exit()
+                        opcion = int(input('\n' + '1: Ver etiquetas | 2: Ver nube de etiquetas  | 3: salir  '))
+
+                except ValueError:
+                    print('No válido, solo opción 1 | 2 | 3')
 
         except Exception as e:
             print('Error 404 - Página no encontrada')
