@@ -81,13 +81,10 @@ def generarNube():
     for i in range(len(cloudPNG)) :
         maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
 
-    wc = WordCloud(background_color='white',
-                   max_words=len(listaVotos),
-                   mask=maskCloud,
-                   contour_width=0.1)
 
-    text = " ".join(listaTags)
-    wc.generate(text)
+    wc = WordCloud(background_color='white',
+                   mask=maskCloud,
+                   max_font_size=listaVotos[0]).generate(listaTags[0])
 
     wc.to_file("nube.png")
     plt.figure(figsize=[ 10, 7 ])
