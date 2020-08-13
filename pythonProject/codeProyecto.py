@@ -69,9 +69,7 @@ def buscarEtiquetas():
                 listaVotos.append(vte2)
                 listaTags += ttb
         iterator += 1
-    print(len(listaVotos))
-    print(listaVotos)
-    '''if len(listaVotos) != 0:
+    if len(listaVotos) != 0:
         m3 = []
         listaVtsModified = [iter(listaVotos)] * 4
         Matriz1 = list(zip_longest(*listaVtsModified, fillvalue=' '))
@@ -79,13 +77,15 @@ def buscarEtiquetas():
         Matriz2 = list(zip_longest(*listTagsModified, fillvalue=' '))
         ck = [ '       PUNTUACIONES  ETIQUETAS' ]
         print(tabulate(ck, tablefmt='plain', stralign='center'))
-        for i in range(int(len(listaVotos)/4)):
+        for i in range((int(len(listaVotos) / 4))):
             m3.append([])
             for j in range(4):
                 m3[i].append(f'{(Matriz1[i][j])}'+ ' : ' + str(Matriz2[i][j]))
         print(tabulate(m3,tablefmt='fancy_grid',stralign='center')) 
-        
-        stopwords = set(STOPWORDS)
+        .listaVotos = listaVotos
+def     lista():
+
+        '''stopwords = set(STOPWORDS)
         wine_mask = np.array(Image.open("84419.png"))
         transformed_wine_mask = np.ndarray((wine_mask.shape[ 0 ], wine_mask.shape[ 1 ]), np.int32)
 
@@ -102,9 +102,9 @@ def buscarEtiquetas():
         plt.figure(figsize=[ 20, 10 ])
         plt.imshow(wc, interpolation='bilinear')
         plt.axis("off")
-        plt.show()
+        plt.show()'''
     else:
-        print('El usuario dispone de etiquetas, pero no posee puntuaciones.')'''
+        print('El usuario dispone de etiquetas, pero no posee puntuaciones.')
 
 
 
@@ -126,8 +126,8 @@ try :
                 print('El usuario no cuenta con etiquetas')
             else:
                 datosUser()
-
                 buscarEtiquetas()
+
         except Exception as e:
             print('Error 404 - Página no encontrada')
 except ValueError :
