@@ -11,23 +11,11 @@ import requests
 import urllib.request
 
 
-
-
-
-
-def transform_format(val):
+def mapearMascara(val):
     if val == 0:
         return 255
     else:
         return val
-
-def validaciones(string):
-    try:
-        int(string)
-        return True
-    except ValueError:
-        return False
-
 
 def datosUser():
     name = soup.find_all('div', class_='grid--cell fw-bold')
@@ -36,7 +24,6 @@ def datosUser():
     userName = [[f'Nombre del Usuario: {c} \n ID: {userIdent}']]
     print(tabulate(present, tablefmt='fancy_grid', stralign='center'))
     print(tabulate(userName, tablefmt='fancy_grid', stralign='center')+ '\n')
-
 
 def buscarEtiquetas():
     pagination = soupTag.find_all('a', class_='s-pagination--item js-pagination-item')
@@ -70,7 +57,6 @@ def buscarEtiquetas():
                 listaTags.append(ttb.text)
         iterator += 1
 
-
 def mostrarEtiquetas():
     if len(listaVotos) != 0:
         m3 = []
@@ -89,21 +75,22 @@ def mostrarEtiquetas():
         print('El usuario dispone de etiquetas, pero no posee puntuaciones.')
 
 def generarNube():
-    stopwords = set(STOPWORDS)
-    wine_mask = np.array(Image.open("84419.png"))
-    transformed_wine_mask = np.ndarray((wine_mask.shape[ 0 ], wine_mask.shape[ 1 ]), np.int32)
+    cloudPNG = np.array(Image.open("mask.png"))
+    maskCloud = np.ndarray((cloudPNG.shape[ 0 ], cloudPNG.shape[ 1 ]), np.int32)
 
-    for i in range(len(wine_mask)) :
-        transformed_wine_mask[ i ] = list(map(transform_format, wine_mask[ i ]))
+    for i in range(len(cloudPNG)) :
+        maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
 
-    wc = WordCloud(background_color='white', max_words=1000, mask=transformed_wine_mask, stopwords=stopwords,
-                   contour_width=3, contour_color='dimgray')
+    wc = WordCloud(background_color='white',
+                   max_words=len(listaVotos),
+                   mask=maskCloud,
+                   contour_width=0.1)
 
     text = " ".join(listaTags)
     wc.generate(text)
 
-    wc.to_file("cat2.png")
-    plt.figure(figsize=[ 20, 10 ])
+    wc.to_file("nube.png")
+    plt.figure(figsize=[ 10, 7 ])
     plt.imshow(wc, interpolation='bilinear')
     plt.axis("off")
     plt.show()
@@ -129,7 +116,8 @@ try :
             else:
                 datosUser()
                 buscarEtiquetas()
-                mostrarEtiquetas()
+                #mostrarEtiquetas()
+                generarNube()
 
         except Exception as e:
             print('Error 404 - Página no encontrada')
