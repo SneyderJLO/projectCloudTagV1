@@ -10,6 +10,11 @@ from itertools import  zip_longest
 import requests
 import urllib.request
 
+
+
+
+
+
 def transform_format(val):
     if val == 0:
         return 255
@@ -30,9 +35,7 @@ def datosUser():
     present = [ [ f'USUARIO ENCONTRADO - URL\n {URL}' ] ]
     userName = [[f'Nombre del Usuario: {c} \n ID: {userIdent}']]
     print(tabulate(present, tablefmt='fancy_grid', stralign='center'))
-    print(tabulate(userName, tablefmt='fancy_grid', stralign='center'))
-    print()
-    print()
+    print(tabulate(userName, tablefmt='fancy_grid', stralign='center')+ '\n')
 
 
 def buscarEtiquetas():
@@ -41,11 +44,8 @@ def buscarEtiquetas():
         ultimaPag = 1
     else:
         ultimaPag = int(pagination[-2].text)
-
     paginaEtiquetas = URL + '?tab=tags&sort=votes&page='
     iterator = 1
-    listaTags = list()
-    listaVotos = list()
     while iterator <= ultimaPag:
         numPaginas = str(iterator)
         mostrarTags = requests.get(paginaEtiquetas + numPaginas)
@@ -67,46 +67,46 @@ def buscarEtiquetas():
                 vte2 = int(vte2.replace(vte2, f'{ch}'))
             if vte2 > 0:
                 listaVotos.append(vte2)
-                listaTags += ttb
+                listaTags.append(ttb.text)
         iterator += 1
+
+
+def mostrarEtiquetas():
     if len(listaVotos) != 0:
         m3 = []
         listaVtsModified = [iter(listaVotos)] * 4
         Matriz1 = list(zip_longest(*listaVtsModified, fillvalue=' '))
         listTagsModified = [iter(listaTags)] * 4
         Matriz2 = list(zip_longest(*listTagsModified, fillvalue=' '))
-        ck = [ '       PUNTUACIONES  ETIQUETAS' ]
-        print(tabulate(ck, tablefmt='plain', stralign='center'))
+        ck = [ 'PUNTUACIONES  ETIQUETAS']
+        print(tabulate(ck, tablefmt='plain', stralign='center')+'\n')
         for i in range((int(len(listaVotos) / 4))):
             m3.append([])
             for j in range(4):
                 m3[i].append(f'{(Matriz1[i][j])}'+ ' : ' + str(Matriz2[i][j]))
-        print(tabulate(m3,tablefmt='fancy_grid',stralign='center')) 
-        .listaVotos = listaVotos
-def     lista():
-
-        '''stopwords = set(STOPWORDS)
-        wine_mask = np.array(Image.open("84419.png"))
-        transformed_wine_mask = np.ndarray((wine_mask.shape[ 0 ], wine_mask.shape[ 1 ]), np.int32)
-
-        for i in range(len(wine_mask)) :
-            transformed_wine_mask[ i ] = list(map(transform_format, wine_mask[ i ]))
-
-        wc = WordCloud(background_color='white', max_words=1000, mask=transformed_wine_mask, stopwords=stopwords,
-                       contour_width=3, contour_color='dimgray')
-
-        text = " ".join(listaTags)
-        wc.generate(text)
-
-        wc.to_file("cat2.png")
-        plt.figure(figsize=[ 20, 10 ])
-        plt.imshow(wc, interpolation='bilinear')
-        plt.axis("off")
-        plt.show()'''
+        print(tabulate(m3,tablefmt='fancy_grid',stralign='center'))
     else:
         print('El usuario dispone de etiquetas, pero no posee puntuaciones.')
 
+def generarNube():
+    stopwords = set(STOPWORDS)
+    wine_mask = np.array(Image.open("84419.png"))
+    transformed_wine_mask = np.ndarray((wine_mask.shape[ 0 ], wine_mask.shape[ 1 ]), np.int32)
 
+    for i in range(len(wine_mask)) :
+        transformed_wine_mask[ i ] = list(map(transform_format, wine_mask[ i ]))
+
+    wc = WordCloud(background_color='white', max_words=1000, mask=transformed_wine_mask, stopwords=stopwords,
+                   contour_width=3, contour_color='dimgray')
+
+    text = " ".join(listaTags)
+    wc.generate(text)
+
+    wc.to_file("cat2.png")
+    plt.figure(figsize=[ 20, 10 ])
+    plt.imshow(wc, interpolation='bilinear')
+    plt.axis("off")
+    plt.show()
 
 
 try :
@@ -114,6 +114,8 @@ try :
     entrada = int(userid)
     if entrada > 0:
         userIdent = str(userid)
+        listaVotos = list()
+        listaTags = list()
         URL = 'https://es.stackoverflow.com/users/' + userIdent  # concatenar cadenas
         pagina = requests.get(URL)
         pagTab = requests.get(URL + '?tab=tags&sort=votes&page=1')
@@ -127,6 +129,7 @@ try :
             else:
                 datosUser()
                 buscarEtiquetas()
+                mostrarEtiquetas()
 
         except Exception as e:
             print('Error 404 - Página no encontrada')
