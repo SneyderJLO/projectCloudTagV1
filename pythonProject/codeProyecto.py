@@ -6,8 +6,12 @@ import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
 from urllib.request import Request
 from tabulate import tabulate
+from os import path
 from itertools import  zip_longest
 import requests
+import io
+
+
 import urllib.request
 
 
@@ -75,20 +79,20 @@ def mostrarEtiquetas():
         print('El usuario dispone de etiquetas, pero no posee puntuaciones.')
 
 def generarNube():
+    dic = dict(zip(listaTags, listaVotos))
     cloudPNG = np.array(Image.open("mask.png"))
     maskCloud = np.ndarray((cloudPNG.shape[ 0 ], cloudPNG.shape[ 1 ]), np.int32)
     for i in range(len(cloudPNG)) :
         maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
-    wc = WordCloud(background_color='white', max_words=len(listaVotos), mask=maskCloud, contour_width=0.01,
-                       contour_color='dimgray',colormap='BuPu')
-    text = ' '.join(listaTags)
-    wc.generate(text)
+    wc = WordCloud(background_color='white', max_words=1000, mask=maskCloud, contour_width=0.01,
+                       contour_color='dimgray').generate_from_frequencies(dic)
+
+
     wc.to_file("nube.png")
     plt.figure(figsize=[ 10, 7 ])
     plt.imshow(wc, interpolation='bilinear')
     plt.axis("off")
     plt.show()
-
 
 try :
     userid = input('Ingrese el ID del usuario: ')

@@ -12,8 +12,10 @@ def transform_format(val):
     else:
         return val
 
-my_list=["one", "one two", "three"]
-stopwords = set(STOPWORDS)
+url = 'http://clipart-library.com/new_gallery/336-3364458_cloud-animation-png-clipart-png-download-cloud-animation.png'
+response = requests.get(url)
+cd = Image.open(BytesIO(response.content))
+wine_mask = np.array(cd)
 wine_mask = np.array(Image.open("mask.png"))
 print(wine_mask)
 
