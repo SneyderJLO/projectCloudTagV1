@@ -9,7 +9,7 @@ from tabulate import tabulate
 from os import path
 from itertools import  zip_longest
 import requests
-import io
+from os import system
 
 
 import urllib.request
@@ -123,8 +123,9 @@ try :
                             generarNube()
                         if opcion == 3:
                             exit()
-                        opcion = int(input('\n 1: Ver etiquetas \n 2: Ver nube de etiquetas \n 3: salir \n OPCION: '))
 
+                        opcion = int(input('\n 1: Ver etiquetas \n 2: Ver nube de etiquetas \n 3: salir \n OPCION: '))
+                        system("cls")
                 except ValueError:
                     print('No válido, solo opción 1 | 2 | 3')
 
