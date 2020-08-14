@@ -80,15 +80,14 @@ def mostrarEtiquetas():
 
 def generarNube():
     dic = dict(zip(listaTags, listaVotos))
+    maxWords = len(listaVotos)
     cloudPNG = np.array(Image.open("mask.png"))
     maskCloud = np.ndarray((cloudPNG.shape[ 0 ], cloudPNG.shape[ 1 ]), np.int32)
     for i in range(len(cloudPNG)) :
         maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
-    wc = WordCloud(background_color='white', max_words=1000, mask=maskCloud, contour_width=0.01,
+    wc = WordCloud(background_color='white', max_words = maxWords, mask=maskCloud, contour_width=0.01,
                        contour_color='dimgray').generate_from_frequencies(dic)
 
-
-    wc.to_file("nube.png")
     plt.figure(figsize=[ 10, 7 ])
     plt.imshow(wc, interpolation='bilinear')
     plt.axis("off")
@@ -114,6 +113,7 @@ try :
             else:
                 datosUser()
                 buscarEtiquetas()
+
                 try:
                     opcion = int(input('\n 1: Ver etiquetas \n 2: Ver nube de etiquetas \n 3: salir \n OPCION: '))
                     while opcion != 3:
