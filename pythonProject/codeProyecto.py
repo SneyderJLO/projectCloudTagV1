@@ -82,7 +82,7 @@ def generarNube():
   maskCloud = np.ndarray((cloudPNG.shape[ 0 ], cloudPNG.shape[ 1 ]), np.int32)
   for i in range(len(cloudPNG)):
     maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
-  wc = WordCloud(background_color='white', max_words = maxWords, mask=maskCloud, colormap = 'tab20b').generate_from_frequencies(dic)
+  wc = WordCloud(background_color='white', max_words = maxWords, mask=maskCloud, colormap = 'Blues').generate_from_frequencies(dic)
   plt.figure(figsize=[ 20, 10 ])
   plt.imshow(wc, interpolation='bilinear')
   plt.axis("off")
