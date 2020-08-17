@@ -11,6 +11,7 @@ import requests
 import os
 import urllib.request
 from io import BytesIO
+import time
 #--------------------------------------------------------------------
 # -------------------------- FUNCIONES ------------------------------
 
@@ -36,6 +37,7 @@ def Presentación():
   print(" |_ \ _ | .` | / -_) | || | (_-< (_-< / -_) | '_|     | |   / -_) | ' \  / -_) | '  \  / -_) / _` |")
   print("|___/(_)|_|\_| \___|  \_, | /__/ /__/ \___| |_|       |_|   \___| |_||_| \___| |_|_|_| \___| \__,_|")
   print("                        |__/                                                                         ")
+  time.sleep(5)
 
 def mapearMascara(val):
   if val == 0:
