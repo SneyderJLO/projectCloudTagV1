@@ -10,10 +10,11 @@ from os import path
 from itertools import  zip_longest
 import requests
 from os import system
+from matplotlib import rcParams
 
 
 import urllib.request
-
+rcParams['font.family'] = 'sans-serif'
 
 def mapearMascara(val):
     if val == 0:
@@ -79,17 +80,20 @@ def mostrarEtiquetas():
         print('El usuario dispone de etiquetas, pero no posee puntuaciones.')
 
 def generarNube():
+    fontpath2 = 'C:\Windows\Fonts\Calibri.ttf'
     dic = dict(zip(listaTags, listaVotos))
     maxWords = len(listaVotos)
     cloudPNG = np.array(Image.open("mask.png"))
     maskCloud = np.ndarray((cloudPNG.shape[ 0 ], cloudPNG.shape[ 1 ]), np.int32)
     for i in range(len(cloudPNG)) :
         maskCloud[ i ] = list(map(mapearMascara, cloudPNG[ i ]))
-    wc = WordCloud(background_color='white', max_words = maxWords, mask=maskCloud, contour_width=0.01,
-                       contour_color='dimgray').generate_from_frequencies(dic)
+    wc = WordCloud(font_path='cour.ttf', background_color='white', max_words = maxWords, colormap = 'Blues',
+                   mask=maskCloud).generate_from_frequencies(dic)
+    wc.to_file('nube.png')
+    plt.figure(figsize=[ 13, 13 ])
 
-    plt.figure(figsize=[ 10, 7 ])
     plt.imshow(wc, interpolation='bilinear')
+
     plt.axis("off")
     plt.show()
 
